@@ -1,0 +1,2 @@
+0 Rice,Dhal,KolaMallum,Chicken,Brinjol
+1 Rice,Dhal,CucumberSalad,Chicken,Beetroot
