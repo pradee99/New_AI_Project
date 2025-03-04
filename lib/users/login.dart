@@ -68,6 +68,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         
         decoration: const BoxDecoration(color: Colors.white),
+          child: SingleChildScrollView(
+          
         child: Padding(
           padding: const EdgeInsets.only(left: 24.0, right: 24, top: 80),
           child: Form(
@@ -155,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+          ),
       ),
     );
   }
