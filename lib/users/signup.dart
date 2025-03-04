@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:food/api_connection/api_connection.dart'; // Import API constants
+import 'package:food/api_connection/api_connection.dart';
+
+import '../config/theme.dart';
+import '../widget/customButton.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -34,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _isLoading = false;
       });
 
-      print("Response Body: ${response.body}"); // Debugging line
+      print("Response Body: ${response.body}");
 
       try {
         final data = jsonDecode(response.body);
@@ -54,14 +57,13 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sign Up")),
+      appBar: AppBar(title: const Text("Sign Up"),centerTitle: true,),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
             child: Column(
@@ -70,57 +72,87 @@ class _SignupScreenState extends State<SignupScreen> {
                 // Username Field
                 TextFormField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  validator: (value) => value!.isEmpty ? "Enter a username" : null,
+                  decoration: const InputDecoration(
+                      labelText: "Username",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: primaryDark,
+                      ),
+                      focusColor: primaryDark),
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter a username" : null,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Email Field
                 TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),
-                  ),
+                  decoration: const InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: primaryDark,
+                      ),
+                      focusColor: primaryDark),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => value!.isEmpty ? "Enter an email" : null,
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter an email" : null,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Password Field
                 TextFormField(
                   controller: _passwordController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: "Password",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: primaryDark,
+                      ),
+                      focusColor: primaryDark
                   ),
                   obscureText: true,
-                  validator: (value) =>
-                  value!.length < 6 ? "Password must be at least 6 characters" : null,
+                  validator: (value) => value!.length < 6
+                      ? "Password must be at least 6 characters"
+                      : null,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 // Signup Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _signup,
-                    child: _isLoading
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Text("Sign Up"),
-                  ),
+                Custombutton(
+                  text: 'Sign Up',
+                  icon: Icons.edit,
+                  onPressed: _signup,
                 ),
-
                 // Login Navigation
-                TextButton(
-                  onPressed: () => Navigator.pushNamed(context, "/login"),
-                  child: Text("Already have an account? Login"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Already have an account?",
+                      style: TextStyle(color: primaryMain, fontSize: 16),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, "/login"),
+                      child: const Text(
+                        "Sign In",
+                        style: TextStyle(
+                          color: primaryMain,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -130,7 +162,3 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
-
-
-
-
